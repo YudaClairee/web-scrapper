@@ -2,20 +2,22 @@
 import * as React from 'react'
 import {
   AudioWaveform,
+  BookmarkIcon,
   BookOpen,
   Bot,
   Command,
+  Compass,
   Frame,
   GalleryVerticalEnd,
+  ImportIcon,
   Map,
   PieChart,
   Settings2,
   SquareTerminal,
 } from 'lucide-react'
 import { NavMain } from './nav-main'
-import { NavProjects } from './nav-projects'
+import { NavPrimary } from './nav-primary'
 import { NavUser } from './nav-user'
-import { TeamSwitcher } from './team-switcher'
 import {
   Sidebar,
   SidebarContent,
@@ -25,6 +27,7 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 import { Link } from '@tanstack/react-router'
+import { NavPrimaryProps } from '@/lib/types'
 // This is sample data.
 const data = {
   user: {
@@ -154,6 +157,25 @@ const data = {
     },
   ],
 }
+
+const navItems: NavPrimaryProps['items'] = [
+  {
+    title: 'Items',
+    icon: BookmarkIcon,
+    to: '/dashboard/items',
+  },
+  {
+    title: 'Import',
+    icon: ImportIcon,
+    to: '/dashboard/import',
+  },
+  {
+    title: 'Discover',
+    icon: Compass,
+    to: '/dashboard/discover',
+  },
+]
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -167,8 +189,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        {/*<NavMain items={data.navMain} />*/}
+        <NavPrimary items={navItems} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
