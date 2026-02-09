@@ -15,7 +15,7 @@ import {
   Settings2,
   SquareTerminal,
 } from 'lucide-react'
-import { NavMain } from './nav-main'
+// import { NavMain } from './nav-main'
 import { NavPrimary } from './nav-primary'
 import { NavUser } from './nav-user'
 import {
@@ -26,7 +26,7 @@ import {
   SidebarMenu,
   SidebarRail,
 } from '@/components/ui/sidebar'
-import { Link } from '@tanstack/react-router'
+import { Link, linkOptions } from '@tanstack/react-router'
 import { NavPrimaryProps } from '@/lib/types'
 // This is sample data.
 const data = {
@@ -158,23 +158,27 @@ const data = {
   ],
 }
 
-const navItems: NavPrimaryProps['items'] = [
+// link options ini untuk typesafety kita
+const navItems: NavPrimaryProps['items'] = linkOptions([
   {
     title: 'Items',
     icon: BookmarkIcon,
     to: '/dashboard/items',
+    activeOptions: { exact: false },
   },
   {
     title: 'Import',
     icon: ImportIcon,
     to: '/dashboard/import',
+    activeOptions: { exact: false },
   },
   {
     title: 'Discover',
     icon: Compass,
     to: '/dashboard/discover',
+    activeOptions: { exact: false },
   },
-]
+])
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (

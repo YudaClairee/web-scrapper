@@ -16,6 +16,9 @@ import { Route as MainDashboardIndexRouteImport } from './routes/_main/dashboard
 import { Route as AuthRegisterIndexRouteImport } from './routes/_auth/register/index'
 import { Route as AuthLoginIndexRouteImport } from './routes/_auth/login/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as MainDashboardItemsRouteImport } from './routes/_main/dashboard/items'
+import { Route as MainDashboardImportRouteImport } from './routes/_main/dashboard/import'
+import { Route as MainDashboardDiscoverRouteImport } from './routes/_main/dashboard/discover'
 
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/_auth',
@@ -51,10 +54,28 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MainDashboardItemsRoute = MainDashboardItemsRouteImport.update({
+  id: '/items',
+  path: '/items',
+  getParentRoute: () => MainDashboardRouteRoute,
+} as any)
+const MainDashboardImportRoute = MainDashboardImportRouteImport.update({
+  id: '/import',
+  path: '/import',
+  getParentRoute: () => MainDashboardRouteRoute,
+} as any)
+const MainDashboardDiscoverRoute = MainDashboardDiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
+  getParentRoute: () => MainDashboardRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof MainDashboardRouteRouteWithChildren
+  '/dashboard/discover': typeof MainDashboardDiscoverRoute
+  '/dashboard/import': typeof MainDashboardImportRoute
+  '/dashboard/items': typeof MainDashboardItemsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/login': typeof AuthLoginIndexRoute
   '/register': typeof AuthRegisterIndexRoute
@@ -62,6 +83,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard/discover': typeof MainDashboardDiscoverRoute
+  '/dashboard/import': typeof MainDashboardImportRoute
+  '/dashboard/items': typeof MainDashboardItemsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/login': typeof AuthLoginIndexRoute
   '/register': typeof AuthRegisterIndexRoute
@@ -72,6 +96,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
   '/_main/dashboard': typeof MainDashboardRouteRouteWithChildren
+  '/_main/dashboard/discover': typeof MainDashboardDiscoverRoute
+  '/_main/dashboard/import': typeof MainDashboardImportRoute
+  '/_main/dashboard/items': typeof MainDashboardItemsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_auth/login/': typeof AuthLoginIndexRoute
   '/_auth/register/': typeof AuthRegisterIndexRoute
@@ -82,17 +109,31 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/dashboard/discover'
+    | '/dashboard/import'
+    | '/dashboard/items'
     | '/api/auth/$'
     | '/login'
     | '/register'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/auth/$' | '/login' | '/register' | '/dashboard'
+  to:
+    | '/'
+    | '/dashboard/discover'
+    | '/dashboard/import'
+    | '/dashboard/items'
+    | '/api/auth/$'
+    | '/login'
+    | '/register'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
     | '/_auth'
     | '/_main/dashboard'
+    | '/_main/dashboard/discover'
+    | '/_main/dashboard/import'
+    | '/_main/dashboard/items'
     | '/api/auth/$'
     | '/_auth/login/'
     | '/_auth/register/'
@@ -157,6 +198,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_main/dashboard/items': {
+      id: '/_main/dashboard/items'
+      path: '/items'
+      fullPath: '/dashboard/items'
+      preLoaderRoute: typeof MainDashboardItemsRouteImport
+      parentRoute: typeof MainDashboardRouteRoute
+    }
+    '/_main/dashboard/import': {
+      id: '/_main/dashboard/import'
+      path: '/import'
+      fullPath: '/dashboard/import'
+      preLoaderRoute: typeof MainDashboardImportRouteImport
+      parentRoute: typeof MainDashboardRouteRoute
+    }
+    '/_main/dashboard/discover': {
+      id: '/_main/dashboard/discover'
+      path: '/discover'
+      fullPath: '/dashboard/discover'
+      preLoaderRoute: typeof MainDashboardDiscoverRouteImport
+      parentRoute: typeof MainDashboardRouteRoute
+    }
   }
 }
 
@@ -175,10 +237,16 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 )
 
 interface MainDashboardRouteRouteChildren {
+  MainDashboardDiscoverRoute: typeof MainDashboardDiscoverRoute
+  MainDashboardImportRoute: typeof MainDashboardImportRoute
+  MainDashboardItemsRoute: typeof MainDashboardItemsRoute
   MainDashboardIndexRoute: typeof MainDashboardIndexRoute
 }
 
 const MainDashboardRouteRouteChildren: MainDashboardRouteRouteChildren = {
+  MainDashboardDiscoverRoute: MainDashboardDiscoverRoute,
+  MainDashboardImportRoute: MainDashboardImportRoute,
+  MainDashboardItemsRoute: MainDashboardItemsRoute,
   MainDashboardIndexRoute: MainDashboardIndexRoute,
 }
 

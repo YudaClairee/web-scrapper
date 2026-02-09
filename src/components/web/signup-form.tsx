@@ -19,9 +19,11 @@ import { useForm } from '@tanstack/react-form'
 import { registerSchema } from '@/schemas/auth'
 import { authClient } from '@/lib/auth-client'
 import { toast } from 'sonner'
+import { useTransition } from 'react'
 
 export function SignupForm() {
   const navigate = useNavigate()
+  const [isPending, startTransition] = useTransition()
   const form = useForm({
     defaultValues: {
       name: '',
@@ -31,23 +33,25 @@ export function SignupForm() {
     validators: {
       onSubmit: registerSchema,
     },
-    onSubmit: async ({ value }) => {
-      await authClient.signUp.email({
-        email: value.email,
-        name: value.name,
-        password: value.password,
-        callbackURL: '/dashboard',
-        fetchOptions: {
-          onSuccess: () => {
-            toast.success('Account created succesfully')
-            navigate({
-              to: '/',
-            })
+    onSubmit: ({ value }) => {
+      startTransition(async () => {
+        await authClient.signUp.email({
+          email: value.email,
+          name: value.name,
+          password: value.password,
+          callbackURL: '/dashboard',
+          fetchOptions: {
+            onSuccess: () => {
+              toast.success('Account created succesfully')
+              navigate({
+                to: '/dashboard',
+              })
+            },
+            onError: ({ error }) => {
+              toast.error(error.message)
+            },
           },
-          onError: ({ error }) => {
-            toast.error(error.message)
-          },
-        },
+        })
       })
     },
   })
@@ -145,7 +149,9 @@ export function SignupForm() {
             />
             <FieldGroup>
               <Field>
-                <Button type="submit">Create Account</Button>
+                <Button disabled={isPending} type="submit">
+                  {isPending ? 'Creating...' : 'Create Account'}
+                </Button>
                 <FieldDescription className="px-6 text-center">
                   Already have an account? <Link to={'/login'}>Sign in</Link>
                 </FieldDescription>
