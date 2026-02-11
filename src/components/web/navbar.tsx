@@ -28,14 +28,14 @@ function Navbar() {
           <div className="relative">
             <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full group-hover:bg-primary/30 transition-all duration-300" />
             <img
-              src="/ulikteruslogo.png"
+              src="/ulikterus_tr-navbar.png"
               alt="UlikTerus Logo"
-              className="size-10 relative z-10"
+              className="w-26 h-12 relative z-10"
             />
           </div>
-          <span className="text-xl font-bold bg-linear-to-r from-primary via-orange-500 to-amber-500 bg-clip-text text-transparent">
+          {/* <span className="text-xl font-bold bg-linear-to-r from-primary via-orange-500 to-amber-500 bg-clip-text text-transparent">
             UlikTerus
-          </span>
+          </span> */}
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

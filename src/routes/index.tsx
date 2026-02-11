@@ -462,11 +462,10 @@ function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <img
-              src="/ulikteruslogo.png"
+              src="/ulikterus_tr-navbar.png"
               alt="UlikTerus Logo"
-              className="size-8"
+              className="w-24 h-12"
             />
-            <span className="font-semibold">UlikTerus</span>
           </div>
 
           <div className="flex items-center gap-6 text-sm text-muted-foreground">
