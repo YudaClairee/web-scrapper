@@ -10,6 +10,7 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarRail,
+  useSidebar,
 } from '@/components/ui/sidebar'
 import { Link, linkOptions } from '@tanstack/react-router'
 import { NavPrimaryProps, NavUserProps } from '@/lib/types'
@@ -37,13 +38,18 @@ const navItems: NavPrimaryProps['items'] = linkOptions([
 ])
 
 export function AppSidebar({ user }: NavUserProps) {
+  const { state } = useSidebar()
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarContent>
             <Link to="/">
-              <img src="/ulikterus_tr-navbar.png" className="w-36 p-2" />
+              {state === 'collapsed' ? (
+                <img src="/ulikteruslogo.png" className="size-6 mx-auto" />
+              ) : (
+                <img src="/ulikterus_tr-navbar.png" className="w-40 p-2" />
+              )}
             </Link>
           </SidebarContent>
         </SidebarMenu>
